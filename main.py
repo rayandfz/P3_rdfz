@@ -1,19 +1,11 @@
-from pyparsing import col
-from sklearn.compose import make_column_transformer
 from sklearn.metrics import *
-from sklearn.model_selection import cross_val_score, KFold, RandomizedSearchCV, train_test_split
 from sklearn.ensemble import RandomForestRegressor
 from sklearn.model_selection import train_test_split, StratifiedShuffleSplit, GridSearchCV
 from sklearn.linear_model import LinearRegression, Lasso, Ridge, SGDRegressor, ElasticNet
 from sklearn.svm import SVR
 from sklearn.preprocessing import *
-from sklearn.pipeline import make_pipeline
-from sklearn.pipeline import make_pipeline
 import pandas as pd
-from xgboost import XGBRegressor
 import numpy as np
-import matplotlib.pyplot as plt
-from scipy.stats import uniform, randint
 
 class Model():
     def __init__(self, X_train, X_test, Y_train, Y_test):
@@ -25,7 +17,10 @@ class Model():
             "Ridge": Ridge(),
             "LinearRegression": LinearRegression(),
             "ElasticNet": ElasticNet(),
-            "RandomForestRegressor": RandomForestRegressor()
+            "RandomForestRegressor": RandomForestRegressor(),
+            'SVR': SVR(),
+            "Lasso": Lasso(),
+            "SGDRegressor": SGDRegressor()
         }
         self.model = self.models["LinearRegression"] # par défaut on applique une regression linéaire
 
@@ -68,7 +63,7 @@ print("On remarque ici, une score relativement bon mais il serait sûrement meil
 
 m = Model(X_train, X_test, y_train, y_test)  
 
-models = ["Ridge", "LinearRegression", "ElasticNet", "RandomForestRegressor"]
+models = ["Ridge", "LinearRegression", "ElasticNet", "RandomForestRegressor", "SGDRegressor", "Lasso", "SVR"]
 columns = ["log-SiteEnergyUseWN(kBtu)", "log-TotalGHGEmissions"]
 
 for model in models:
